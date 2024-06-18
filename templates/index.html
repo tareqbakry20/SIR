@@ -1,0 +1,64 @@
+{%load  static %}
+{%  csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Retrieval Function</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<body>
+    <div class="container">
+        <h2>Information Retrieval HomeWork</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="search-input" class="form-label">Enter Your Text</label>
+                <input type="text" class="form-control" id="search-input" name="search-input" placeholder="Search...">
+            </div>
+            <div class="mb-3">
+                <label for="inputGroupSelect01" class="form-label">Choose Model</label>
+                <select class="form-select" id="inputGroupSelect01" name="select-option">
+                    <option selected>Choose...</option>
+                    <option value="Boolean Model">Boolean Model</option>
+                    <option value="Vector Model">Vector Model</option>
+                    <option value="Extended Boolean">Extended Boolean</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        </div>
+        <div class="div2">
+            <form>
+                <div class="info" name="info">
+                    <table class="table table-dark table-striped" name="table">
+                        <thead>
+                            <tr>
+                                <th>Search Resulte</th>
+                                <th>rank</th>
+                            </tr>
+                        </thead>
+                            
+                        <tbody>
+                                                  
+                                                    {% for result in search_results %}
+                                                    <tr>
+                                                        <td><a href="{% url 'read' result  %}">{{ result }}</a></td>
+                                                        <td>{{ forloop.counter }}</td> 
+                                                    </tr>
+                                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+              
+                <textarea class="resulte" name="resulte" cols="30" rows="15">{{CONT |safe}}</textarea>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js'%}"></script>
+</body>
+
+</html>
